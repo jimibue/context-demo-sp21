@@ -4,10 +4,11 @@ import AccountClassForm from './AccountClassForm'
 
 const AccountProfile = (props)=>{
     return(
+        
         <div>
             <p>AccountProfile</p>
             <Account />
-            <AccountClassForm />
+            <AccountClassForm header={'Yo Here'}/>
         </div>
     )
 }

@@ -1,41 +1,27 @@
 import { Component } from 'react'
 import { Form } from 'semantic-ui-react'
+import { AccountConsumer } from '../providers/AccountProvider'
 
 class AccountClassForm extends Component {
-    state = { username: 'asdf', membershipLevel: 'Silver' }
+    state = { username: this.props.username, membershipLevel: this.props.membershipLevel }
 
 
 
     // we need to setState here 
     handleChange = (e, { name, value }) => {
-        console.log(e)
-        console.log(name)
-        console.log(value)
-
         this.setState({
             [name]: value
         })
-
-        // This works, but there is a better way to do it.
-        // if (name === 'username') {
-        //     this.setState({
-        //         username: value
-        //     })
-        // } else {
-
-        //     this.setState({
-        //         membershipLevel: value
-        //     })
-        // }
     }
 
     handleSubmit = (e) =>{
-        console.log('submitted')
-        console.log(this.state)
+        this.props.updateAccount({...this.state})
     }
 
     render() {
         return (
+            <>
+            <h1>{this.props.header}</h1>
             <Form onSubmit={this.handleSubmit}>
                 <Form.Input
                     label='New UserName'
@@ -53,10 +39,24 @@ class AccountClassForm extends Component {
                 />
                 <Form.Button>add</Form.Button>
             </Form>
+            </>
 
         )
     }
 }
+
+
+const ConnectedAccountClassForm = (props)=>{
+    console.log('props ', props)
+    return (
+    <AccountConsumer>
+        {(value)=>(
+            <AccountClassForm {...props} updateAccount={value.updateAccount} username={value.username} membershipLevel={value.membershipLevel}/>
+         )}
+      </AccountConsumer>
+    )
+}
+
 
 const membershipOptions = [
     { key: 'b', text: "Bronze", value: "Bronze" },
@@ -64,4 +64,4 @@ const membershipOptions = [
     { key: 'g', text: "Gold", value: "Gold" },
 ]
 
-export default AccountClassForm
+export default ConnectedAccountClassForm
