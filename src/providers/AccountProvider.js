@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 
 //Setup the initial context
 export const AccountContext = React.createContext();
@@ -6,29 +6,35 @@ export const AccountContext = React.createContext();
 // export a consumer
 export const AccountConsumer = AccountContext.Consumer 
 
-class AccountProvider extends React.Component{
-   
-    state = {
-        username:'FooMan',
-        dateJoined:'12/12/21',
-        membershipLevel:'Silver',
-        updateAccount: (account) => this.updateAccount(account)
-    }
+const AccountProvider = (props)=> {
+    const [account, setAccount] = useState(null)
+    const [initialLoadInProgress, setInitialLoadInProgress] = useState(true)
 
-    updateAccount = (account) =>{
-        console.log(account)
-        this.setState({
-            ...account
+    useEffect(()=>{
+        console.log('AccountProvider mounted')
+
+        setTimeout(()=>{
+            console.log('getting Data')
+            getData()
+            
+        },2000)
+    },[])
+
+    const getData = () => {
+       setAccount({
+            username:'FooManFUnC',
+            dateJoined:'12/12/21',
+            membershipLevel:'Silver',
         })
+        setInitialLoadInProgress(false)
     }
 
-    render(){
+ 
         return(
-            <AccountContext.Provider value={this.state}>
-                {this.props.children}
+            <AccountContext.Provider value={{...account, updateAccount: setAccount, initialLoadInProgress}}>
+                {props.children }
             </AccountContext.Provider>
         )
-    }
 }
 
 export default AccountProvider

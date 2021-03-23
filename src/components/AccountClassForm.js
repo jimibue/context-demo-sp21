@@ -5,8 +5,6 @@ import { AccountConsumer } from '../providers/AccountProvider'
 class AccountClassForm extends Component {
     state = { username: this.props.username, membershipLevel: this.props.membershipLevel }
 
-
-
     // we need to setState here 
     handleChange = (e, { name, value }) => {
         this.setState({
@@ -19,6 +17,7 @@ class AccountClassForm extends Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <>
             <h1>{this.props.header}</h1>

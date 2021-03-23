@@ -1,14 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AccountContext } from '../providers/AccountProvider'
 import Account from './Account'
-import AccountClassForm from './AccountClassForm'
+import AccountFuncForm from './AccountFuncForm'
+import MyLoader from './MyLoader'
 
 const AccountProfile = (props)=>{
+    const {initialLoadInProgress} = useContext(AccountContext)
+    if (initialLoadInProgress) return <MyLoader />
     return(
         
         <div>
             <p>AccountProfile</p>
-            <Account />
-            <AccountClassForm header={'Yo Here'}/>
+                  <Account />
+                  <AccountFuncForm header={'Functional form'} />
         </div>
     )
 }

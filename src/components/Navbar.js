@@ -14,11 +14,12 @@ const Navbar = () => (
                  Home
             </Menu.Item>
             </NavLink>
-            <NavLink to="/account/profile">
+            { !value.initialLoadInProgress && <NavLink to="/account/profile">
                <Menu.Item>
-               {value.username}
+               { value.username}
                 </Menu.Item>
                 </NavLink>
+                }
             </Menu>
         )}
     </AccountConsumer>
